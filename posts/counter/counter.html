@@ -209,7 +209,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="idea-0-count-numbers" class="level2">
 <h2 class="anchored" data-anchor-id="idea-0-count-numbers">Idea 0: count numbers</h2>
 <p>Assume all experience is finite and discrete.</p>
-<p>In this example, given a buffer <code>x</code> of <span class="math inline">\(T=7\)</span> experience of kinds 0..10 exclusive, use <code>torch.unique</code> to count occurrences.</p>
+<p>In this example, given a buffer <code>x</code> of <span class="math inline">\(T=7\)</span> experience of kinds <span class="math inline">\([0..10)\)</span> exclusive, use <code>torch.unique</code> to count occurrences.</p>
 <div class="cell" data-execution_count="94">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">7</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>experience <span class="op">=</span> torch.randint(<span class="dv">0</span>, <span class="dv">10</span>, (T,))</span>
@@ -243,29 +243,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>plt.yticks(<span class="bu">range</span>(<span class="bu">len</span>(words)), string.printable[:<span class="bu">len</span>(words)])</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>plt.xticks([<span class="dv">2</span><span class="op">**</span>i <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>)])</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Codebook of 16 words, 32 dimensions per word vector'</span>)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>plt.colorbar()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
-<pre><code>&lt;matplotlib.colorbar.Colorbar at 0x7fb33d216080&gt;</code></pre>
-</div>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>plt.colorbar()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="counter_files/figure-html/cell-4-output-2.png" class="img-fluid"></p>
+<p><img src="counter_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>Now given a random experience <span class="math inline">\(x\)</span> I’m going to use a fast algorithm to compute pairwise L2 norms with the vocabulary. It’s mentioned in <a href="https://openreview.net/forum?id=DHSNrGhAY7W">Kim, Papamakarios and Mnih, 2020</a> and <a href="https://github.com/eth-cscs/PythonHPC/blob/master/numpy/03-euclidean-distance-matrix-numpy.ipynb">this CSCS tutorial on HPC for Python</a>.</p>
 <div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.randn(T, D) <span class="co"># experience</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> table.weight.data <span class="co"># discrete prototypes</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>l2_norm_similarity_slow <span class="op">=</span> torch.norm(x[:, <span class="va">None</span>, :] <span class="op">-</span> y[<span class="va">None</span>, :, :], p<span class="op">=</span><span class="dv">2</span>, dim<span class="op">=-</span><span class="dv">1</span>) <span class="co"># (T, V)</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>l2_norm_similarity_fast <span class="op">=</span> ((x<span class="op">*</span>x).<span class="bu">sum</span>(dim<span class="op">=-</span><span class="dv">1</span>)[:,<span class="va">None</span>] <span class="op">-</span> <span class="dv">2</span><span class="op">*</span>(x <span class="op">@</span> y.T) <span class="op">+</span> (y<span class="op">*</span>y).<span class="bu">sum</span>(dim<span class="op">=-</span><span class="dv">1</span>)[<span class="va">None</span>, :]).<span class="bu">abs</span>().sqrt() <span class="co"># (T,V)</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>torch.allclose(l2_norm_similarity_slow, l2_norm_similarity_fast)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.randn(T, D) <span class="co"># experience</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> table.weight.data <span class="co"># discrete prototypes</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>l2_norm_similarity_slow <span class="op">=</span> torch.norm(x[:, <span class="va">None</span>, :] <span class="op">-</span> y[<span class="va">None</span>, :, :], p<span class="op">=</span><span class="dv">2</span>, dim<span class="op">=-</span><span class="dv">1</span>) <span class="co"># (T, V)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>l2_norm_similarity_fast <span class="op">=</span> ((x<span class="op">*</span>x).<span class="bu">sum</span>(dim<span class="op">=-</span><span class="dv">1</span>)[:,<span class="va">None</span>] <span class="op">-</span> <span class="dv">2</span><span class="op">*</span>(x <span class="op">@</span> y.T) <span class="op">+</span> (y<span class="op">*</span>y).<span class="bu">sum</span>(dim<span class="op">=-</span><span class="dv">1</span>)[<span class="va">None</span>, :]).<span class="bu">abs</span>().sqrt() <span class="co"># (T,V)</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>torch.allclose(l2_norm_similarity_slow, l2_norm_similarity_fast)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>True</code></pre>
 </div>
 </div>
 <p>Now <code>argmin</code> gives us our hard assignment to codebook ids:</p>
 <div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>l2_norm_similarity_fast.argmin(dim<span class="op">=-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>l2_norm_similarity_fast.argmin(dim<span class="op">=-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>tensor([ 4, 10,  6,  7, 15,  8,  8])</code></pre>
 </div>
@@ -281,25 +278,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Matching can be done against noisy versions of vector observations. Example below uses dot product attention to match and count.</p>
 <p>Alternatively 2-norm can be used instead of the dot product. L2 attention has bounded gradient, as shown in <a href="https://openreview.net/forum?id=DHSNrGhAY7W">Kim, Papamakarios and Mnih, 2020</a>. This fact can be useful later.</p>
 <div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>keys <span class="op">=</span> table(experience) <span class="co"># keys is the experience sequence of length T</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> table(torch.arange(<span class="bu">len</span>(words))) <span class="co"># keys are the whole vocabulary V</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>att <span class="op">=</span> (keys <span class="op">@</span> query.T) <span class="op">/</span> math.sqrt(D) <span class="co"># (T, V)</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>att <span class="op">=</span> att.softmax(dim<span class="op">=-</span><span class="dv">1</span>)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>soft_counts <span class="op">=</span> att.<span class="bu">sum</span>(dim<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>fig, (axl,axr) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">3</span>))</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>axl.imshow(att)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>axl.set_yticks(ticks<span class="op">=</span><span class="bu">range</span>(<span class="bu">len</span>(experience)), labels<span class="op">=</span>experience.tolist())<span class="op">;</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>axl.set_xticks(ticks<span class="op">=</span><span class="bu">range</span>(<span class="bu">len</span>(query)), labels<span class="op">=</span>string.printable[:<span class="bu">len</span>(query)])<span class="op">;</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>axl.set_ylabel(<span class="st">'experience is key'</span>)</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>axl.set_xlabel(<span class="st">'vocabulary is query'</span>)</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>axr.bar(<span class="bu">range</span>(<span class="bu">len</span>(query)), soft_counts.<span class="bu">round</span>().tolist(), alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>axr.bar(<span class="bu">range</span>(<span class="bu">len</span>(query)), soft_counts.tolist(), alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>axr.set_xticks(ticks<span class="op">=</span><span class="bu">range</span>(<span class="bu">len</span>(query)), labels<span class="op">=</span>string.printable[:<span class="bu">len</span>(query)])<span class="op">;</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>axr.set_yticks(ticks<span class="op">=</span><span class="bu">range</span>(<span class="dv">3</span>))<span class="op">;</span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>axr.set_ylabel(<span class="st">'(rounded) soft counts'</span>)</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>axr.set_xlabel(<span class="st">'vocabulary'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>keys <span class="op">=</span> table(experience) <span class="co"># keys is the experience sequence of length T</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> table(torch.arange(<span class="bu">len</span>(words))) <span class="co"># keys are the whole vocabulary V</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>att <span class="op">=</span> (keys <span class="op">@</span> query.T) <span class="op">/</span> math.sqrt(D) <span class="co"># (T, V)</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>att <span class="op">=</span> att.softmax(dim<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>soft_counts <span class="op">=</span> att.<span class="bu">sum</span>(dim<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>fig, (axl,axr) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">3</span>))</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>axl.imshow(att)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>axl.set_yticks(ticks<span class="op">=</span><span class="bu">range</span>(<span class="bu">len</span>(experience)), labels<span class="op">=</span>experience.tolist())<span class="op">;</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>axl.set_xticks(ticks<span class="op">=</span><span class="bu">range</span>(<span class="bu">len</span>(query)), labels<span class="op">=</span>string.printable[:<span class="bu">len</span>(query)])<span class="op">;</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>axl.set_ylabel(<span class="st">'experience is key'</span>)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>axl.set_xlabel(<span class="st">'vocabulary is query'</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>axr.bar(<span class="bu">range</span>(<span class="bu">len</span>(query)), soft_counts.<span class="bu">round</span>().tolist(), alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>axr.bar(<span class="bu">range</span>(<span class="bu">len</span>(query)), soft_counts.tolist(), alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>axr.set_xticks(ticks<span class="op">=</span><span class="bu">range</span>(<span class="bu">len</span>(query)), labels<span class="op">=</span>string.printable[:<span class="bu">len</span>(query)])<span class="op">;</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>axr.set_yticks(ticks<span class="op">=</span><span class="bu">range</span>(<span class="dv">3</span>))<span class="op">;</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>axr.set_ylabel(<span class="st">'(rounded) soft counts'</span>)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>axr.set_xlabel(<span class="st">'vocabulary'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="counter_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
 </div>
@@ -311,11 +308,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We perform counting recurrently, updating a hidden state of word counts. This downgrades complexity of updates from quadratic to linear.</p>
 <p>Once observations are discrete (e.g.&nbsp;turned discrete through elaborate quantization), this can be implemented with <code>cumsum</code>.</p>
 <div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>B, T, V <span class="op">=</span> <span class="dv">2</span>, <span class="dv">7</span>, <span class="dv">4</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>observations <span class="op">=</span> torch.randint(<span class="dv">0</span>, V, (B, T)).view(<span class="op">-</span><span class="dv">1</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>one_hot_observations <span class="op">=</span> F.one_hot(observations).view(B,T,V)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>running_counts <span class="op">=</span> one_hot_observations.cumsum(dim<span class="op">=-</span><span class="dv">2</span>)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>running_counts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>B, T, V <span class="op">=</span> <span class="dv">2</span>, <span class="dv">7</span>, <span class="dv">4</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>observations <span class="op">=</span> torch.randint(<span class="dv">0</span>, V, (B, T)).view(<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>one_hot_observations <span class="op">=</span> F.one_hot(observations).view(B,T,V)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>running_counts <span class="op">=</span> one_hot_observations.cumsum(dim<span class="op">=-</span><span class="dv">2</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>running_counts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>tensor([[[0, 1, 0, 0],
          [0, 2, 0, 0],
@@ -337,10 +334,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="idea-4-abstract-over-embedding-tables" class="level2">
 <h2 class="anchored" data-anchor-id="idea-4-abstract-over-embedding-tables">Idea 4: abstract over embedding tables</h2>
-<p>Different environments provide different possible “vocabularies” of experience. All vocabularies are sampled from <span class="math inline">\(\mathcal{N}(0,I)\)</span>. Let’s train a recurrent network to predict how many times it has seen a given input plus one.</p>
+<p>Different environments provide different possible “vocabularies” of experience. All vocabularies are sampled from <span class="math inline">\(\mathcal{N}(0,I)\)</span>. Let’s train a recurrent network to predict how many times it has seen a given input.</p>
 <div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># spot init.normal_</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>nn.Embedding.reset_parameters??</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># spot init.normal_</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>nn.Embedding.reset_parameters??</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Signature: nn.Embedding.reset_parameters(self) -&gt; None
 Docstring: &lt;no docstring&gt;
@@ -353,71 +350,71 @@ Type:      function</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_batch():</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Generate random observation sequences and a class index</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">    that tells if we've seen the observation once (class 0), twice (class 1) or many times (class 2) before.</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">    inputs (torch.Tensor): A tensor of shape (B, T, D) containing the embeddings</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">    of the observation sequences, where B is the batch size, T is the sequence length,</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">    and D is the embedding dimension.</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">    targets (torch.Tensor): A tensor of shape (B, T) containing the class index,</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co">    where B is the batch size and T is the sequence length.</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    B, T, D, Vlocal <span class="op">=</span> <span class="dv">32</span>, <span class="dv">7</span>, <span class="dv">32</span>, <span class="dv">4</span></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    Vglobal <span class="op">=</span> B<span class="op">*</span>Vlocal</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    local_word_ids <span class="op">=</span> torch.randint(<span class="dv">0</span>, <span class="dv">4</span>, (B, T,))</span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    table <span class="op">=</span> nn.Embedding(Vglobal, D)</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    global_word_ids <span class="op">=</span> torch.arange(B)[:, <span class="va">None</span>]<span class="op">*</span><span class="dv">4</span> <span class="op">+</span> local_word_ids</span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    inputs <span class="op">=</span> table(global_word_ids)</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    current_input <span class="op">=</span> F.one_hot(local_word_ids.view(<span class="op">-</span><span class="dv">1</span>), num_classes<span class="op">=</span>Vlocal).view(B, T, Vlocal)</span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    counts <span class="op">=</span> current_input.cumsum(dim<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># how many times have we seen the current input so far? one, two or many</span></span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    targets <span class="op">=</span> (counts <span class="op">*</span> current_input).clamp(<span class="dv">0</span>, <span class="dv">3</span>)</span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    targets <span class="op">=</span> targets.<span class="bu">sum</span>(<span class="op">-</span><span class="dv">1</span>) <span class="op">-</span> <span class="dv">1</span></span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> inputs, targets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_batch():</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Generate random observation sequences and a class index</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">    that tells if we've seen the observation once (class 0), twice (class 1) or many times (class 2) before.</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">    inputs (torch.Tensor): A tensor of shape (B, T, D) containing the embeddings</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">    of the observation sequences, where B is the batch size, T is the sequence length,</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">    and D is the embedding dimension.</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co">    targets (torch.Tensor): A tensor of shape (B, T) containing the class index,</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co">    where B is the batch size and T is the sequence length.</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    B, T, D, Vlocal <span class="op">=</span> <span class="dv">32</span>, <span class="dv">7</span>, <span class="dv">32</span>, <span class="dv">4</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    Vglobal <span class="op">=</span> B<span class="op">*</span>Vlocal</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    local_word_ids <span class="op">=</span> torch.randint(<span class="dv">0</span>, <span class="dv">4</span>, (B, T,))</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    table <span class="op">=</span> nn.Embedding(Vglobal, D)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    global_word_ids <span class="op">=</span> torch.arange(B)[:, <span class="va">None</span>]<span class="op">*</span><span class="dv">4</span> <span class="op">+</span> local_word_ids</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    inputs <span class="op">=</span> table(global_word_ids)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    current_input <span class="op">=</span> F.one_hot(local_word_ids.view(<span class="op">-</span><span class="dv">1</span>), num_classes<span class="op">=</span>Vlocal).view(B, T, Vlocal)</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    counts <span class="op">=</span> current_input.cumsum(dim<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># how many times have we seen the current input so far? one, two or many</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    targets <span class="op">=</span> (counts <span class="op">*</span> current_input).clamp(<span class="dv">0</span>, <span class="dv">3</span>)</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    targets <span class="op">=</span> targets.<span class="bu">sum</span>(<span class="op">-</span><span class="dv">1</span>) <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> inputs, targets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>I’ll be using <a href="https://people.idsia.ch/~juergen/lstm2003tutorial.pdf">LSTM</a> that has an inductive bias towards counting thanks to its forget gates. This has been mentioned in <a href="https://iclr.cc/virtual/2023/oral/12616">Deletang et al, 2023</a> putting LSTM in context with other architectures.</p>
 <div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Counter(nn.Module):</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, dim<span class="op">=</span><span class="dv">32</span>, hidden<span class="op">=</span><span class="dv">512</span>):</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.readin <span class="op">=</span> nn.Linear(dim, hidden)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.rnn <span class="op">=</span> nn.LSTM(hidden, hidden, batch_first<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.readout <span class="op">=</span> nn.Linear(hidden, <span class="dv">3</span>) <span class="co"># one, two or many times</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.readin(x)</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        x, _ <span class="op">=</span> <span class="va">self</span>.rnn(x)</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.readout(x)</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>torch.set_grad_enabled(<span class="va">True</span>)</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>device <span class="op">=</span> <span class="st">'cuda:1'</span></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>counter <span class="op">=</span> Counter().to(device)</span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>optimizer <span class="op">=</span> torch.optim.Adam(counter.parameters(), lr<span class="op">=</span><span class="fl">1e-3</span>)</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">10000</span></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>losses <span class="op">=</span> torch.zeros(N)</span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> step <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,N<span class="op">+</span><span class="dv">1</span>):</span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>    inputs, targets <span class="op">=</span> make_batch()</span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>    inputs, targets <span class="op">=</span> inputs.to(device), targets.to(device)</span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>    logits <span class="op">=</span> counter(inputs)</span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> F.cross_entropy(logits.view(<span class="op">-</span><span class="dv">1</span>, <span class="dv">3</span>), targets.view(<span class="op">-</span><span class="dv">1</span>))</span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>    optimizer.zero_grad()</span>
-<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>    loss.backward()</span>
-<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>    optimizer.step()</span>
-<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>    losses[step<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> loss.item()</span>
-<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> step <span class="op">&gt;</span> <span class="dv">1</span> <span class="kw">and</span> math.log10(step) <span class="op">%</span> <span class="dv">1</span> <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>        plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>,<span class="dv">2</span>))</span>
-<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>        plt.plot(losses[:step<span class="op">-</span><span class="dv">1</span>].numpy())</span>
-<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>        plt.title(<span class="ss">f'step </span><span class="sc">{</span>step<span class="sc">}</span><span class="ss">: loss </span><span class="sc">{</span>loss<span class="sc">:.5f}</span><span class="ss">'</span>)</span>
-<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>        plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Counter(nn.Module):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, dim<span class="op">=</span><span class="dv">32</span>, hidden<span class="op">=</span><span class="dv">512</span>):</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.readin <span class="op">=</span> nn.Linear(dim, hidden)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.rnn <span class="op">=</span> nn.LSTM(hidden, hidden, batch_first<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.readout <span class="op">=</span> nn.Linear(hidden, <span class="dv">3</span>) <span class="co"># one, two or many times</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.readin(x)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        x, _ <span class="op">=</span> <span class="va">self</span>.rnn(x)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.readout(x)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>torch.set_grad_enabled(<span class="va">True</span>)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>device <span class="op">=</span> <span class="st">'cuda:1'</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>counter <span class="op">=</span> Counter().to(device)</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>optimizer <span class="op">=</span> torch.optim.Adam(counter.parameters(), lr<span class="op">=</span><span class="fl">1e-3</span>)</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>losses <span class="op">=</span> torch.zeros(N)</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> step <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,N<span class="op">+</span><span class="dv">1</span>):</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    inputs, targets <span class="op">=</span> make_batch()</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    inputs, targets <span class="op">=</span> inputs.to(device), targets.to(device)</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    logits <span class="op">=</span> counter(inputs)</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> F.cross_entropy(logits.view(<span class="op">-</span><span class="dv">1</span>, <span class="dv">3</span>), targets.view(<span class="op">-</span><span class="dv">1</span>))</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    optimizer.zero_grad()</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>    loss.backward()</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>    optimizer.step()</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>    losses[step<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> loss.item()</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> step <span class="op">&gt;</span> <span class="dv">1</span> <span class="kw">and</span> math.log10(step) <span class="op">%</span> <span class="dv">1</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>        plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>,<span class="dv">2</span>))</span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>        plt.plot(losses[:step<span class="op">-</span><span class="dv">1</span>].numpy())</span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>        plt.title(<span class="ss">f'step </span><span class="sc">{</span>step<span class="sc">}</span><span class="ss">: loss </span><span class="sc">{</span>loss<span class="sc">:.5f}</span><span class="ss">'</span>)</span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>        plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="counter_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
 </div>
@@ -433,8 +430,8 @@ Type:      function</code></pre>
 </div>
 <p>Now, let’s test the counter.</p>
 <div class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>inputs, targets <span class="op">=</span> make_batch()</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>counter(inputs[<span class="dv">0</span>, :].to(device)).argmax(dim<span class="op">=-</span><span class="dv">1</span>), targets[<span class="dv">0</span>, :].to(device)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>inputs, targets <span class="op">=</span> make_batch()</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>counter(inputs[<span class="dv">0</span>, :].to(device)).argmax(dim<span class="op">=-</span><span class="dv">1</span>), targets[<span class="dv">0</span>, :].to(device)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>(tensor([0, 1, 0, 2, 1, 2, 0], device='cuda:1'),
  tensor([0, 1, 0, 2, 1, 2, 0], device='cuda:1'))</code></pre>
