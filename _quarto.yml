@@ -1,0 +1,20 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Volodymyr Kyrylov"
+  navbar:
+    right:
+#      - about.qmd
+      - icon: github
+        href: https://github.com/proger
+      - icon: twitter
+        href: https://twitter.com/darkproger
+      - icon: youtube
+        href: https://www.youtube.com/channel/UCail2cvnKVfbHD4FX3t_28Q
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+
