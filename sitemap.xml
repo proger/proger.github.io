@@ -2,18 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>git@github.com:proger/proger.github.io/about.html</loc>
-    <lastmod>2023-10-05T19:20:36.353Z</lastmod>
+    <lastmod>2023-10-07T13:00:06.643Z</lastmod>
   </url>
   <url>
     <loc>git@github.com:proger/proger.github.io/posts/counter/counter.html</loc>
-    <lastmod>2023-10-05T19:20:35.741Z</lastmod>
+    <lastmod>2023-10-07T13:00:05.905Z</lastmod>
+  </url>
+  <url>
+    <loc>git@github.com:proger/proger.github.io/posts/meta/motivation.html</loc>
+    <lastmod>2023-10-07T13:00:05.089Z</lastmod>
   </url>
   <url>
     <loc>git@github.com:proger/proger.github.io/posts/welcome/index.html</loc>
-    <lastmod>2023-10-05T19:20:35.262Z</lastmod>
+    <lastmod>2023-10-07T13:00:05.414Z</lastmod>
   </url>
   <url>
     <loc>git@github.com:proger/proger.github.io/index.html</loc>
-    <lastmod>2023-10-05T19:20:36.107Z</lastmod>
+    <lastmod>2023-10-07T13:00:06.373Z</lastmod>
   </url>
 </urlset>

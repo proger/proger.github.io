@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Volodymyr Kyrylov - ε␂</title>
+<title>Volodymyr Kyrylov - Problem Setup</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,59 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -61,50 +93,21 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Volodymyr Kyrylov</span>
     </a>
   </div>
@@ -139,8 +142,8 @@ ul.task-list li input[type="checkbox"] {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">ε␂</h1>
+    <div class="quarto-title column-body">
+      <h1 class="title">Problem Setup</h1>
                       </div>
   </div>
     
@@ -153,134 +156,70 @@ ul.task-list li input[type="checkbox"] {
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(3)</span></div><div class="category" data-category="misc">misc <span class="quarto-category-count">(2)</span></div><div class="category" data-category="rl">rl <span class="quarto-category-count">(1)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
+<div class="cell" data-execution_count="2">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">42</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Sequence recognition and translation tasks from source language <span class="math inline">\(p(x)\)</span> to target language <span class="math inline">\(p(y)\)</span> require maintenance of large consistent parallel corpora <span class="math inline">\(p(y|x)\)</span> to make maximum likelihood estimation methods work.</p>
+<p>Drifts in target languages (e.g.&nbsp;recently acquired consensus on new spelling or grammar rules, <a href="https://twitter.com/NYT_first_said">new words</a>) or in corpora curation rules (e.g.&nbsp;decision to include punctuation in speech recognition output) require actions like dataset balancing, retraining or costly hyperparameter retuning to account for substantial changes in the data distribution.</p>
+<p>Drifts in source languages, such as shifts in speaker characteristic like accents or code switching, channel characteristics like environment noise or reverbertaion, or capture device conditions like EMG body sensor positions require extensive multi-condition training efforts (augmentation design) and condition adaptation.</p>
+<p>To make deep learning work well in all source and target language conditions users need to ensure that all data is properly curated and balanced, on top of having to deal with architecture-specific issues like sequence length generalization or hyperparameter tuning due to dataset size mismatch.</p>
+<p>The curator is required to decide what parts of data distribution require attention to improve performance. The objective of getting the system to perform better on a held out test set can be with odds to the objective of equally representing all users.</p>
+<p>Curation of consistent parallel corpora is a tedious task that requires that a large batch of updates (e.g.&nbsp;1-10 hours worth of sentences) is done offline, and only then a model is retrained or fine-tuned using a slow learning algorithm like SGD. Getting an SGD-based system to immediately adjust its output based on a single training example (e.g.&nbsp;correction of a single) word is very hard. Even though <a href="https://fa.bianp.net/blog/2021/exponential-sgd/">SGD converges exponentially fast</a>.</p>
+<p>Current deep learning systems work quite well on estimating densities like <span class="math inline">\(p(x)\)</span> and <span class="math inline">\(p(y)\)</span> and with addition of discrete tokenizers it becomes much easier to estimate <span class="math inline">\(p(x,y)\)</span> jointly.</p>
+<p>It’s often easy small amounts of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> and perform density adaptation of large pretrained models with adapters.</p>
+<p>Adaptation of translation rules seems to be much harder to get right and requires a lot of tweaking. Given densities, we would like to perform translation, synthesis or recognition. Can we delay binding of translation rules so that users can bring their own?</p>
+<p>We have two datasets of disjoint discrete integer sequences <span class="math inline">\(L\)</span> and <span class="math inline">\(R\)</span>. Alternatively, these are sentences in different languages with no common words.</p>
+<p>We do not know correct possible translations from one sequence to another, however we would like to let the user of a system propose their rules of translation. We would like to perform joint language modeling of both languages to learn their individual regularities and learn an algorithm to rewrite sequences in one language into sequences in another from examples.</p>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>N, D, L, R <span class="op">=</span> <span class="dv">32</span>, <span class="dv">32</span>, <span class="dv">100</span>, <span class="dv">100</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>joint <span class="op">=</span> nn.Embedding(L<span class="op">+</span>R, D)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>left <span class="op">=</span> torch.randint(<span class="dv">0</span>, L, (<span class="dv">10000</span>, N, <span class="dv">10</span>))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>right <span class="op">=</span> torch.randint(L, L<span class="op">+</span>R, (<span class="dv">10000</span>, N, <span class="dv">10</span>))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>both <span class="op">=</span> torch.cat([torch.randint(<span class="dv">0</span>, L, (<span class="dv">10000</span>, N, <span class="dv">5</span>)),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                  torch.randint(L, L<span class="op">+</span>R, (<span class="dv">10000</span>, N, <span class="dv">5</span>))], dim<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>Both</code> is a zero shot translation example. How do I make one sequence of 5-shot examples where the last translation follows from the previous four?</p>
+<p>Let’s design a latent vocabulary of subsequences of the dataset on the left to the subsequences of the dataset on the right. We assume left vocabulary is speech like so let’s add some speech-like properties: multiple ways to same the say thing (many to one mapping),</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is my latent model that encodes a</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># AUD phn</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>ASD<span class="op">+</span> й</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>AZD й</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>DEF ц</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>DIF ц</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>GHI у</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>GGI у</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>ASDDDDDD DEF GHI GGI DEF й ц у у ц</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>lm <span class="op">=</span> nn.Sequential(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    nn.Linear(D, <span class="dv">128</span>),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    nn.LSTM(<span class="dv">128</span>, <span class="dv">1024</span>, batch_first<span class="op">=</span><span class="va">True</span>),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    nn.Linear(<span class="dv">1024</span>, <span class="dv">256</span>),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    nn.ReLU(),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    nn.Linear(<span class="dv">256</span>, L<span class="op">+</span>R)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="misc" data-listing-date-sort="1696629600000" data-listing-file-modified-sort="1696683591614" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
-<div class="thumbnail">
-<p><a href="./posts/meta/motivation.html"> <p class="card-img-top"><img src="posts/meta/motivation_files/figure-html/cell-2-output-1.png"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./posts/meta/motivation.html">
-<h3 class="no-anchor listing-title">
-Sparsely supervised learning needs faster learning algorithms
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('misc'); return false;">
-misc
-</div>
-</div>
-<a href="./posts/meta/motivation.html">
-<div class="listing-description">
-Sequence transduction tasks require large parallel corpora to get <span class="math inline">\(p(y|x)\)</span>. Small changes to…
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/meta/motivation.html">
-<div class="listing-date">
-Oct 7, 2023
-</div>
-<div class="listing-author">
-Volodymyr Kyrylov
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="rl" data-listing-date-sort="1696456800000" data-listing-file-modified-sort="1696681942224" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
-<div class="thumbnail">
-<p><a href="./posts/counter/counter.html"> <p class="card-img-top"><img src="posts/counter/counter_files/figure-html/cell-3-output-1.png"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./posts/counter/counter.html">
-<h3 class="no-anchor listing-title">
-How To Count Experience
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('rl'); return false;">
-rl
-</div>
-</div>
-<a href="./posts/counter/counter.html">
-<div class="listing-description">
-When performing exploration of environments we’d like to know how many times we’ve been in the current state.
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/counter/counter.html">
-<div class="listing-date">
-Oct 5, 2023
-</div>
-<div class="listing-author">
-Volodymyr Kyrylov
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="misc" data-listing-date-sort="1695938400000" data-listing-file-modified-sort="1696681942223" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
-<div class="thumbnail">
-<p><a href="./posts/welcome/index.html"> <p class="card-img-top"><img src="posts/welcome/zima_shades.png"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./posts/welcome/index.html">
-<h3 class="no-anchor listing-title">
-Hello World
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('misc'); return false;">
-misc
-</div>
-</div>
-<a href="./posts/welcome/index.html">
-<div class="listing-description">
-This is the first post in a Quarto blog. Welcome!
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/welcome/index.html">
-<div class="listing-date">
-Sep 29, 2023
-</div>
-<div class="listing-author">
-Volodymyr Kyrylov
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
