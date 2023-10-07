@@ -187,6 +187,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>Sequence transduction tasks require large parallel corpora to get <span class="math inline">\(p(y|x)\)</span>. Small changes to translation rules require large updates to data and tuning. How to make models adapt online with little data?</p>
 <div class="cell" data-execution_count="62">
+<details>
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.linspace(<span class="op">-</span><span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">1000</span>)</span>
@@ -199,8 +201,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>plt.plot(x, p_x<span class="op">/</span>p_x.<span class="bu">sum</span>(), color<span class="op">=</span><span class="st">'#011117'</span>)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>plt.plot(x, p_y<span class="op">/</span>p_y.<span class="bu">sum</span>(), color<span class="op">=</span><span class="st">'#56cbf7'</span>)</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>plt.plot(x, divergence, color<span class="op">=</span><span class="st">'#16b8f3'</span>, linestyle<span class="op">=</span><span class="st">':'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
-<p><img src="motivation_files/figure-html/cell-2-output-1.png" class="img-fluid"></p>
+<p><img src="motivation_files/figure-html/cell-2-output-1.png" class="img-fluid" alt="doodle: divergence of two distributions"></p>
 </div>
 </div>
 <p>Drifts in target languages (e.g.&nbsp;recently acquired consensus on new spelling or grammar rules, <a href="https://twitter.com/NYT_first_said">new words</a>) or in corpora curation rules (e.g.&nbsp;decision to include punctuation in speech recognition output) require actions like dataset balancing, retraining or costly hyperparameter retuning to account for substantial changes in the data distribution.</p>
