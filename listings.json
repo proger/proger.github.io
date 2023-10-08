@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/meta-ar/thing.html",
       "/posts/meta/motivation.html",
       "/posts/counter/counter.html",
       "/posts/welcome/index.html"
