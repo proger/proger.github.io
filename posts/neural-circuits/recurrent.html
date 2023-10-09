@@ -190,7 +190,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="long-short-term-memory" class="level3">
 <h3 class="anchored" data-anchor-id="long-short-term-memory">Long Short Term Memory</h3>
-<p><span class="math inline">\(c_t = C(x_t,h_{t-1}) \cdot c_{t-1} + T(x_t,h_{t_1}) \cdot F(x_t,h_{t-1})\)</span></p>
+<p><span class="math inline">\(c_t = C(x_t,h_{t-1}) \cdot c_{t-1} + T(x_t,h_{t-1}) \cdot F(x_t,h_{t-1})\)</span></p>
 <p><span class="math inline">\(h_t = O(x_t,h_{t-1}) \cdot c_{t}\)</span></p>
 <p>where <span class="math inline">\(C\)</span> is also named <em>forget gate</em>, <span class="math inline">\(T\)</span> is <em>input gate</em>, and <span class="math inline">\(O\)</span> is <em>output gate</em>. In this context the <em>gates are recurrent</em>.</p>
 <p>Using feed forward gates without recurrence makes a <a href="https://arxiv.org/abs/2309.11197">quasi LSTM</a>. Quasi LSTM is designed so that equations for future hidden states can be precomputed up front for parallelization.</p>
