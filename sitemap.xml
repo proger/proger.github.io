@@ -2,30 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>git@github.com:proger/proger.github.io/about.html</loc>
-    <lastmod>2023-10-09T09:27:54.185Z</lastmod>
+    <lastmod>2023-10-12T16:06:54.405Z</lastmod>
   </url>
   <url>
     <loc>git@github.com:proger/proger.github.io/posts/counter/counter.html</loc>
-    <lastmod>2023-10-09T09:27:53.474Z</lastmod>
+    <lastmod>2023-10-12T16:06:53.668Z</lastmod>
   </url>
   <url>
     <loc>git@github.com:proger/proger.github.io/posts/welcome/index.html</loc>
-    <lastmod>2023-10-09T09:27:52.740Z</lastmod>
+    <lastmod>2023-10-12T16:06:52.941Z</lastmod>
+  </url>
+  <url>
+    <loc>git@github.com:proger/proger.github.io/posts/meta/transducer.html</loc>
+    <lastmod>2023-10-12T16:06:52.356Z</lastmod>
   </url>
   <url>
     <loc>git@github.com:proger/proger.github.io/posts/meta-ar/thing.html</loc>
-    <lastmod>2023-10-09T09:27:52.154Z</lastmod>
+    <lastmod>2023-10-12T16:06:51.974Z</lastmod>
   </url>
   <url>
     <loc>git@github.com:proger/proger.github.io/posts/meta/motivation.html</loc>
-    <lastmod>2023-10-09T09:27:52.484Z</lastmod>
+    <lastmod>2023-10-12T16:06:52.681Z</lastmod>
   </url>
   <url>
     <loc>git@github.com:proger/proger.github.io/posts/neural-circuits/recurrent.html</loc>
-    <lastmod>2023-10-09T09:27:53.072Z</lastmod>
+    <lastmod>2023-10-12T16:06:53.266Z</lastmod>
   </url>
   <url>
     <loc>git@github.com:proger/proger.github.io/index.html</loc>
-    <lastmod>2023-10-09T09:27:53.944Z</lastmod>
+    <lastmod>2023-10-12T16:06:54.167Z</lastmod>
   </url>
 </urlset>
