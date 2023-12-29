@@ -2,34 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>git@github.com:proger/proger.github.io/about.html</loc>
-    <lastmod>2023-10-12T16:06:54.405Z</lastmod>
+    <lastmod>2023-12-29T19:23:14.010Z</lastmod>
   </url>
   <url>
     <loc>git@github.com:proger/proger.github.io/posts/counter/counter.html</loc>
-    <lastmod>2023-10-12T16:06:53.668Z</lastmod>
+    <lastmod>2023-12-29T19:23:13.194Z</lastmod>
   </url>
   <url>
     <loc>git@github.com:proger/proger.github.io/posts/welcome/index.html</loc>
-    <lastmod>2023-10-12T16:06:52.941Z</lastmod>
-  </url>
-  <url>
-    <loc>git@github.com:proger/proger.github.io/posts/meta/transducer.html</loc>
-    <lastmod>2023-10-12T16:06:52.356Z</lastmod>
-  </url>
-  <url>
-    <loc>git@github.com:proger/proger.github.io/posts/meta-ar/thing.html</loc>
-    <lastmod>2023-10-12T16:06:51.974Z</lastmod>
+    <lastmod>2023-12-29T19:23:12.430Z</lastmod>
   </url>
   <url>
     <loc>git@github.com:proger/proger.github.io/posts/meta/motivation.html</loc>
-    <lastmod>2023-10-12T16:06:52.681Z</lastmod>
+    <lastmod>2023-12-29T19:23:11.870Z</lastmod>
+  </url>
+  <url>
+    <loc>git@github.com:proger/proger.github.io/posts/meta/transducer1.html</loc>
+    <lastmod>2023-12-29T19:23:11.120Z</lastmod>
+  </url>
+  <url>
+    <loc>git@github.com:proger/proger.github.io/posts/meta-ar/thing.html</loc>
+    <lastmod>2023-12-29T19:23:10.776Z</lastmod>
+  </url>
+  <url>
+    <loc>git@github.com:proger/proger.github.io/posts/meta/transducer.html</loc>
+    <lastmod>2023-12-29T19:23:11.522Z</lastmod>
+  </url>
+  <url>
+    <loc>git@github.com:proger/proger.github.io/posts/scan/chunk.html</loc>
+    <lastmod>2023-12-29T19:23:12.167Z</lastmod>
   </url>
   <url>
     <loc>git@github.com:proger/proger.github.io/posts/neural-circuits/recurrent.html</loc>
-    <lastmod>2023-10-12T16:06:53.266Z</lastmod>
+    <lastmod>2023-12-29T19:23:12.761Z</lastmod>
   </url>
   <url>
     <loc>git@github.com:proger/proger.github.io/index.html</loc>
-    <lastmod>2023-10-12T16:06:54.167Z</lastmod>
+    <lastmod>2023-12-29T19:23:13.752Z</lastmod>
   </url>
 </urlset>
