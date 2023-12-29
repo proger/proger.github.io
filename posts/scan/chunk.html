@@ -152,7 +152,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>We have a linear recurrence:</p>
-<p>$ x_t = <em>t x</em>{t-1} + u_t$</p>
+<p><span class="math inline">\(x_t = \lambda_t \cdot x_{t-1} + u_t\)</span></p>
 <p>We would like to evaluate it in chunks of <span class="math inline">\(T\)</span> elements: one chunk is evaluated by one processor. When all chunks are ready, one processor can integrate results of another.</p>
 <p>Let <span class="math inline">\(x_{-1}\)</span> be the final element of the previous chunk. We’re ready to define the chunked recursion inductively:</p>
 <p>The base case:</p>
