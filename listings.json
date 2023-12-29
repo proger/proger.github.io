@@ -2,7 +2,6 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/meta/transducer1.html",
       "/posts/scan/chunk.html",
       "/posts/meta/transducer.html",
       "/posts/neural-circuits/recurrent.html",
