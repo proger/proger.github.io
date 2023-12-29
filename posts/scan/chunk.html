@@ -160,7 +160,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Here <span class="math inline">\(\bar{x}_0 := \lambda_0 x_{-1}\)</span> can be seen as a <em>port</em>, where we will <em>connect</em> the previous chunk. By linearity we can treat <span class="math inline">\(x'_0 := u_0\)</span> as a base case of the chunk.</p>
 <p>Using associativity we have:</p>
 <p><span class="math inline">\(x_1 = \lambda_1 \lambda_0 x_{-1} + \lambda_1 u_0 + u_1\)</span></p>
-<p>$x_T = _{i=1}^{i=T}_i {x}_0 + <em>t x’</em>{T-1} + u_T $</p>
+<p><span class="math inline">\(x_T = \prod_{i=1}^{i=T} \lambda_i \bar{x}_0 + \lambda_t x'_{T-1} + u_T\)</span></p>
 <p>This leads us to the following algorithm:</p>
 <ol type="1">
 <li>compute the recurrence for <span class="math inline">\(x'_T\)</span></li>
